@@ -1,4 +1,4 @@
-import { lazy } from "solid-js";
+import { children, lazy } from "solid-js";
 import { render } from "solid-js/web";
 import { loadMovie } from "./pages/Movies/[id].data";
 import { loadMovies } from "./pages/Movies/data";
@@ -7,14 +7,13 @@ const routes = [
   {
     path: '/movies',
     load: loadMovies,
-    component: lazy(()=>import('./pages/Movies/Movies'))
+    component: lazy(()=>import('./pages/Movies/Movies')),
   },
-  // {
-  //   path:'/movies/:id',
-  //   load: loadMovie,
-  //   component: lazy(()=> import("./pages/Movies/[id]"))
-    
-  // },
+  {
+    path:"/movies/:id",
+    component: lazy(()=> import("./pages/Movies/[id]")),
+    load: loadMovie,
+  },
   {
     path: "/",
     component: lazy(() => import("./pages/Home")),
