@@ -5,13 +5,13 @@ type Props = {
   title: string
   type: string
   class: string
-  ref: any
-  placeholder: string
+  ref?: any
+  placeholder?: string
   onChange: JSX.ChangeEventHandlerUnion<HTMLInputElement, Event>
   autoComplete: string
   value: string
-  errorDiv: string
-  errorMsg: string
+  errorDiv?: string
+  errorMsg?: string
 }
 
 const Input: Component<Props> = (props) => {
