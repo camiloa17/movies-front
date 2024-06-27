@@ -1,29 +1,12 @@
 import { Component, createSignal } from "solid-js";
 import Input from "../../components/Input";
-import { ApiResponse } from "../../models/apiResponse";
-import { AuthTokens } from "../../models/auth";
 import { useAppContext } from "../../context/appContext";
 import { useNavigate } from "@solidjs/router";
+import { loginUser } from "../../api";
 
-const loginUser = async(email: string, password: string): Promise<ApiResponse<AuthTokens>> => {
-  
-  const reqOptions: RequestInit = {
-    method: "POST",
-    headers: {
-      'Content-Type': "application/json"
-    },
-    credentials: "include",
-    body: JSON.stringify({email, password})
-
-  }
-  const authResp =  await fetch(`http://localhost:8080/authenticate/`, reqOptions)
-  const  authTokens = (await (authResp.json() as Promise<ApiResponse<AuthTokens>>))
-
-  return authTokens
-}
 
 const Login: Component = () => {
-  const { setJwtToken, setAlertClass, setAlertMessage } = useAppContext();
+  const { setJwtToken, setAlertClass, setAlertMessage, toggleRefresh } = useAppContext();
   const navigate = useNavigate()
 
   const [email, setEmail] = createSignal<string>("")
@@ -36,6 +19,7 @@ const Login: Component = () => {
       if (tokensResponse.error){
         setAlertMessage(tokensResponse.message)
         setAlertClass("alert-danger")
+        toggleRefresh(false)
         return
       }else {
         console.log(tokensResponse)
@@ -43,12 +27,14 @@ const Login: Component = () => {
         setAlertMessage("")
         setAlertClass("d-none")
         navigate("/")
+        toggleRefresh(true)
       }
       
     }
     catch(err) {
       setAlertMessage("something went wrong")
       setAlertClass("alert-danger")
+      toggleRefresh(false)
     }
   }
 

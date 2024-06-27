@@ -4,7 +4,7 @@ import { ApiResponse } from '../../models/apiResponse';
 
 
 export const getMovies = cache(async () => {
-  const moviesResponse = await fetch(`http://localhost:8080/movies/`)
+  const moviesResponse = await fetch(`api/movies/`)
   const data = moviesResponse.json() as Promise<ApiResponse<[Movie]>>
   return (await data).data
 }, 'getMovie')
