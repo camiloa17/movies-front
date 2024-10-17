@@ -4,14 +4,16 @@ import { loadMovies } from "./pages/Movies/data";
 
 const routes = [
   {
+    path: "/manage-catalogue",
+    component: lazy(() => import("./pages/ManageCatalog")),
+  },
+  {
     path: '/movies',
-    load: loadMovies,
     component: lazy(()=>import('./pages/Movies/Movies')),
   },
   {
     path:"/movies/:id",
     component: lazy(()=> import("./pages/Movies/[id]")),
-    load: loadMovie,
   },
   {
     path: "/login",
@@ -21,6 +23,7 @@ const routes = [
     path: "/",
     component: lazy(() => import("./pages/Home")),
   },
+  
 ];
 
 export default routes

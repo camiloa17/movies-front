@@ -8,6 +8,6 @@ export const getMovie = cache(async (id: string) => {
   return (await data).data
 }, 'getMovie')
 
-export const loadMovie: RouteLoadFunc = ({params}) => {
-  getMovie(params.id)
+export const loadMovie: RouteLoadFunc<Promise<Movie>> = ({params}) => {
+  return getMovie(params.id)
 }
