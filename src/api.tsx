@@ -14,7 +14,7 @@ export const loginUser = async(email: string, password: string): Promise<ApiResp
     body: JSON.stringify({email, password})
 
   }
-  const authResp =  await fetch(`api/authenticate/`, reqOptions)
+  const authResp =  await fetch(`http://localhost:3000/api/authenticate/`, reqOptions)
   const  authTokens = (await (authResp.json() as Promise<ApiResponse<AuthTokens>>))
 
   return authTokens
@@ -28,7 +28,7 @@ export const refreshTokens = async () => {
     },
     credentials: 'include',
   };
-  const req = await fetch('api/refresh/', reqOptions);
+  const req = await fetch('http://localhost:3000/api/refresh/', reqOptions);
   const authTokens = await (req.json() as Promise<ApiResponse<AuthTokens>>);
 
   return authTokens;

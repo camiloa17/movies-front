@@ -4,7 +4,7 @@ import { ApiResponse } from '../../models/apiResponse';
 
 
 export const getMovies = cache(async () => {
-  const moviesResponse = await fetch(`api/movies/`)
+  const moviesResponse = await fetch(`http://localhost:3000/api/movies/`)
   if (!moviesResponse.ok){
 
   }

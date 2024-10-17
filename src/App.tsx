@@ -63,7 +63,7 @@ const App: Component<RouteSectionProps<unknown>> = (props) => {
       </div>
       <div class='row'>
         <div class='col-md-2'>
-          <Nav iAuthenticated={jwt() !== ''} />
+          <Nav iAuthenticated={Boolean(jwt())} />
         </div>
         <div class='col-md-10'>
           <Alert message={alertMessage()} class={alertClass()} />

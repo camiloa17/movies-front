@@ -1,11 +1,11 @@
-import { Component, createEffect, For, Show } from 'solid-js';
+import { Component, createEffect, For, Index, Show } from 'solid-js';
 import { getMoviesCatalogue } from './data';
 import { A, createAsync, useNavigate } from '@solidjs/router';
 import { useAppContext } from '../../context/appContext';
 
 const ManageCatalog: Component = () => {
-  const {jwt} = useAppContext()
-  
+  const { jwt } = useAppContext();
+
   const movies = createAsync(() => getMoviesCatalogue(jwt() as string));
   return (
     <div>
@@ -21,17 +21,17 @@ const ManageCatalog: Component = () => {
         </thead>
         <tbody>
           <Show when={movies()}>
-            <For each={movies()}>
+            <Index each={movies()}>
               {(movie, index) => (
                 <tr>
                   <td>
-                    <A href={`/movies/${movie.id}`}>{movie.title}</A>
+                    <A href={`/admin/movies/${movie().id}`}>{movie().title}</A>
                   </td>
-                  <td>{movie.releaseDate}</td>
-                  <td>{movie.MPAARating}</td>
+                  <td>{movie().releaseDate}</td>
+                  <td>{movie().MPAARating}</td>
                 </tr>
               )}
-            </For>
+            </Index>
           </Show>
         </tbody>
       </table>

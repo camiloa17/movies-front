@@ -1,4 +1,4 @@
-import {RouteLoadFunc, cache, redirect} from '@solidjs/router';
+import { cache, redirect} from '@solidjs/router';
 import { Movie } from '../../models/movie';
 import { ApiResponse } from '../../models/apiResponse';
 
@@ -15,7 +15,12 @@ export const getMoviesCatalogue = cache(async (token: string | null) => {
     method: "GET",
     headers: headers
   }
-  const moviesResponse = await fetch(`api/admin/movies`, requestOptions)
+  const moviesResponse = await fetch(`http://localhost:3000/api/admin/movies`, requestOptions)
+  if (!moviesResponse.ok) {
+    console.log(moviesResponse)
+    throw redirect("/movies")
+  }
+  console.log(moviesResponse)
   const data = moviesResponse.json() as Promise<ApiResponse<[Movie]>>
   return (await data).data
 }, 'getMovieCatalogue')
